@@ -1,0 +1,17 @@
+{
+  "inputs": [
+    { "type": "promptString", "id": "helpdesk-token", "description": "ヘルプデスクのトークン", "password": true }
+  ],
+  "servers": {
+    "helpdesk-inventory": {
+      "type": "stdio",
+      "command": "C:\\Users\\<ユーザー名>\\mcp-agent\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\<ユーザー名>\\mcp-agent\\code\\servers\\inventory.py"]
+    },
+    "helpdesk-tickets-http": {
+      "type": "http",
+      "url": "http://127.0.0.1:3002/mcp",
+      "headers": { "Authorization": "Bearer ${input:helpdesk-token}" }
+    }
+  }
+}

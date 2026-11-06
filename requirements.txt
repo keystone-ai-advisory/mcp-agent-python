@@ -1,0 +1,7 @@
+# 動作確認: 2026-11-06 / Windows 11 / Python 3.13
+mcp[cli]==2.3.0
+openai==3.46.0
+openai-agents==0.24.0
+langgraph==1.2.20
+pytest==8.4.2
+anyio==4.16.0

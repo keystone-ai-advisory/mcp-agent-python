@@ -1,0 +1,6 @@
+__pycache__/
+.venv/
+.env
+*.pyc
+_BRIEF_for_lab_builders.md
+_check_base.py

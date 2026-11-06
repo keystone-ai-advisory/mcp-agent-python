@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "helpdesk-inventory": {
+      "command": "C:\\Users\\<ユーザー名>\\mcp-agent\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\<ユーザー名>\\mcp-agent\\code\\servers\\inventory.py"]
+    }
+  }
+}

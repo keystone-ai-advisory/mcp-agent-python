@@ -1,0 +1,7 @@
+[
+  {"question": "モニターの在庫はありますか", "tool": "get_stock", "must_include": ["0"]},
+  {"question": "キーボードは何台ありますか", "tool": "get_stock", "must_include": ["37"]},
+  {"question": "貸与PCを交換できる条件を教えてください", "tool": "search_rules", "must_include": ["4年"]},
+  {"question": "どんな品名を取り扱っていますか", "tool": "list_items", "must_include": ["マウス", "モニター"]},
+  {"question": "在宅勤務で機器を持ち出すときのルールは", "tool": "search_rules", "must_include": ["上長"]}
+]
