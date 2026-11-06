@@ -44,7 +44,8 @@ async def run(mcp: Client, tools: list, question: str):
     g.add_edge(START, "llm")
     g.add_conditional_edges("llm", route)
     g.add_edge("tools", "llm")
-    final = await g.compile().ainvoke({"messages": [{"role": "user", "content": question}]})
+    first = {"messages": [{"role": "user", "content": question}]}
+    final = await g.compile().ainvoke(first)
     print(final["messages"][-1]["content"])
 
 

@@ -22,8 +22,12 @@ def list_items() -> list[str]:
     return list(STOCK)
 
 
+Item = Literal["ノートPC", "モニター",
+               "キーボード", "マウス"]
+
+
 @mcp.tool()
-def get_stock(item: Literal["ノートPC", "モニター", "キーボード", "マウス"]) -> StockInfo:
+def get_stock(item: Item) -> StockInfo:
     """品名を受け取り、在庫数と、渡せるかどうかを返す"""
     n = STOCK[item]
     return {"item": item, "count": n, "available": n > 0}

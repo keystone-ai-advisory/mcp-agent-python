@@ -25,8 +25,12 @@ def list_items() -> list[str]:
     return list(STOCK)
 
 
+Item = Literal["ノートPC", "モニター",
+               "キーボード", "マウス"]
+
+
 @mcp.tool()
-def get_stock(item: Literal["ノートPC", "モニター", "キーボード", "マウス"]) -> StockInfo:
+def get_stock(item: Item) -> StockInfo:
     """品名を受け取り、在庫数と、渡せるかどうかを返す"""
     n = STOCK[item]
     return {"item": item, "count": n, "available": n > 0}
@@ -36,9 +40,13 @@ def get_stock(item: Literal["ノートPC", "モニター", "キーボード", "�
 def reserve(item: str, qty: int) -> str:
     """在庫を取り置く。足りないときは、次の手を添えたエラーを返す"""
     if item not in STOCK:                                    # 対象が無い: 別の候補を教える
-        raise ToolError(f"{item} は取り扱いがありません。list_items で品名を確かめてください")
+        raise ToolError(
+            f"{item} は取り扱いがありません。"
+            "list_items で品名を確かめてください")
     if STOCK[item] < qty:                                    # 条件が合わない: どうすればよいか書く
-        raise ToolError(f"{item} は残り {STOCK[item]} 台です。数を減らすか、入荷待ちで起票してください")
+        raise ToolError(
+            f"{item} は残り {STOCK[item]} 台です。"
+            "数を減らすか、入荷待ちで起票してください")
     STOCK[item] -= qty
     return f"{item} を {qty} 台取り置きました"
 

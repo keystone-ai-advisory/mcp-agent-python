@@ -8,7 +8,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from common.llm import chat
 
-TOOLS = {"add": lambda a, b: a + b, "multiply": lambda a, b: a * b}
+TOOLS = {"add": lambda a, b: a + b,
+         "multiply": lambda a, b: a * b}
 SPEC = [{"type": "function", "function": {"name": n, "description": f"2つの数の{d}を返す",
          "parameters": {"type": "object", "properties": {"a": {"type": "number"}, "b": {"type": "number"}},
                         "required": ["a", "b"]}}} for n, d in (("add", "和"), ("multiply", "積"))]

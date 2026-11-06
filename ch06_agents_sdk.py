@@ -22,13 +22,20 @@ model = OpenAIChatCompletionsModel(
 
 async def main():
     # MCP サーバーを子プロセスで起動。道具一覧は1回だけ取り寄せる
+    srv = str(HERE / "servers" / "inventory.py")
     async with MCPServerStdio(
-        params={"command": sys.executable, "args": [str(HERE / "servers" / "inventory.py")]},
+        params={"command": sys.executable, "args": [srv]},
         cache_tools_list=True,
     ) as server:
-        agent = Agent(name="ヘルプデスク", model=model, mcp_servers=[server],
-                      instructions="社内ヘルプデスクです。在庫は道具で調べて、日本語で簡潔に答える。")
-        result = await Runner.run(agent, "モニターとマウスの在庫を教えて")
+        agent = Agent(
+            name="ヘルプデスク",
+            model=model,
+            mcp_servers=[server],
+            instructions="社内ヘルプデスクです。在庫は道具で"
+                         "調べて、日本語で簡潔に答える。",
+        )
+        q = "モニターとマウスの在庫を教えて"
+        result = await Runner.run(agent, q)
         print(result.final_output)
 
 

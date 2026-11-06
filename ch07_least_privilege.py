@@ -18,7 +18,8 @@ from common.mcp_tools import to_openai_tools, result_text
 
 logging.getLogger("httpx").setLevel(logging.WARNING)   # 通信の INFO ログで画面を埋めない
 
-READ_ONLY = {"list_items", "get_stock", "search_rules", "get_ticket"}   # 読むだけ
+READ_ONLY = {"list_items", "get_stock",              # 読むだけ
+             "search_rules", "get_ticket"}
 WRITE = {"create_ticket"}                                               # 書き込み
 
 

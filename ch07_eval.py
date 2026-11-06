@@ -19,7 +19,8 @@ async def run_eval(route, tools, allowed=READ_ONLY, runs=1, ask_fn=ask):
         for _ in range(runs):
             answer, calls = await ask_fn(case["question"], route, tools, allowed)
             tool_ok = case["tool"] in [c[0] for c in calls]          # 動き: 機械的に判定
-            words_ok = all(w in (answer or "") for w in case["must_include"])   # 要点: 語の有無
+            need, text = case["must_include"], answer or ""
+            words_ok = all(w in text for w in need)   # 要点: 語の有無
             passed += tool_ok and words_ok
             total += 1
             print(f"{'OK' if tool_ok and words_ok else 'NG'} 道具={tool_ok} 語={words_ok} {case['question']}")

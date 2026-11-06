@@ -33,7 +33,8 @@ def build(mcp: Client, tools: list):
         for c in state["messages"][-1]["tool_calls"]:
             name, args = c["function"]["name"], json.loads(c["function"]["arguments"])
             if name in WRITE_TOOLS:     # 書き込みだけ止める。道具名と引数をそのまま見せる
-                if interrupt({"tool": name, "args": args}) != "approve":
+                answer = interrupt({"tool": name, "args": args})
+                if answer != "approve":
                     out.append({"role": "tool", "tool_call_id": c["id"],
                                 "content": "人が却下しました。実行していません。やり直さず、却下されたことを利用者に伝えてください"})
                     continue
@@ -53,7 +54,8 @@ def build(mcp: Client, tools: list):
 async def scenario(graph, thread: str, decision: str):
     cfg = {"configurable": {"thread_id": thread}}
     q = "モニターが壊れました。件名「モニター交換」本文「画面が映らない」でチケットを起票して"
-    r = await graph.ainvoke({"messages": [{"role": "user", "content": q}]}, cfg)
+    first = {"messages": [{"role": "user", "content": q}]}
+    r = await graph.ainvoke(first, cfg)
     ask = r["__interrupt__"][0].value
     print(f"[{decision}] 承認待ち:", ask)
     r = await graph.ainvoke(Command(resume=decision), cfg)
